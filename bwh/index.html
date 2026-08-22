@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>插件下载中心</title>
+    <style>
+        body {
+            background: #0d1117;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+        .card {
+            background: #161b22;
+            padding: 50px 60px;
+            border-radius: 16px;
+            border: 1px solid #30363d;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+        }
+        h1 {
+            color: #f0f6fc;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .version {
+            color: #8b949e;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .btn {
+            background: #238636;
+            color: white;
+            border: none;
+            padding: 14px 48px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        .btn:hover {
+            background: #2ea043;
+            transform: scale(1.02);
+        }
+        .btn:active {
+            transform: scale(0.98);
+        }
+        .note {
+            color: #8b949e;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>⚡ 插件下载</h1>
+        <div class="version">BedWarsHeypixel 插件</div>
+        
+        <!-- 防机器人：点击事件通过 JS 动态触发下载，不在标签内直接暴露文件路径 -->
+        <button class="btn" onclick="downloadPlugin()">📥 点击立即下载</button>
+        <div class="note">点击后自动下载，无需额外操作，此为防机器人页面</div>
+    </div>
+
+    <script>
+        function downloadPlugin() {
+            const fileUrl = window.location.href.split('?')[0].replace(/\/$/, '') + '/Guild-3.0.5.jar';
+            
+            // 创建隐藏的 a 标签，触发强制下载
+            const link = document.createElement('a');
+            link.href = fileUrl;
+            link.download = 'BedWarsHeypixel-v26.7.jar'; // 强制下载，而不是在浏览器中尝试打开
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // 额外小防护：禁用右键菜单，防止小白误点“另存为”导致格式错误（可选）
+        document.addEventListener('contextmenu', e => e.preventDefault());
+    </script>
+</body>
+</html>
